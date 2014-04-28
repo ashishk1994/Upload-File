@@ -1,0 +1,21 @@
+{% load staticfiles %}
+<html>
+<head>
+ <meta charset="utf-8">
+ <title>Django File Upload</title>   
+ <link href="{%  static  'bootstrap/css/bootstrap.css'%}" rel="stylesheet" media="screen">
+ <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+</head>
+<body style="background:url({% static 'bgnoise_lg.jpg' %}) repeat scroll 0 0 #F0F0F0;text-align:center;">
+	<h1 style="text-align:center;">Upload your files !!!</h1><br/><br/>
+		<h2>Welcome {{user}}</h2><br/>
+		<a href="/list_file" class="btn btn-danger">List your files here........</a>
+		<br/><br/>
+		{% ifequal a 1 %}
+		<a href="/logout" class="btn btn-success ">logout</a>
+		{% endifequal %}
+		{% ifequal a 0 %}
+		<a href="/accounts/login/" class="btn btn-success ">login/signup</a>
+		{% endifequal %}
+</body>	
+</html>

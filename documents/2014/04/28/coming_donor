@@ -1,0 +1,96 @@
+class coming_donors(webapp2.RequestHandler):
+    	def get(self,camp_key):
+	    logout=users.create_logout_url("/")
+	    user=users.get_current_user()
+	    notify=notification.all().filter("rid = ",str(user)).filter("flag = ",0)
+	    request=[]
+	    for i in notify:
+				request.append(i)
+	    donr=link.all().filter("cid = ",str(camp_key))	     
+	    self.response.write(donr)
+	    out="Name	Email	Contact     Address"
+	    out="Name"
+	    for i in range(4,28):
+		    out+=" "
+	    out+="Email"
+	    for i in range(33,56):
+		    out+=" "
+	    out+="Contact"
+	    for i in range(63,83):
+		    out+=" "
+	    out+="Address"
+	    for i in range(91,114):
+		    out+=" "
+	    don=donor.all()
+	    a=[]
+	    empty=[]
+	    cnt=0
+	    for i in donr:
+		fl=0
+	    	for j in don:
+	 		st=str(j.duser.email())
+			if st==str(i.guser):
+				fl=1
+				out+=str(cnt)
+				out+=" "
+				dnm=str(j.dname)
+				out+=dnm
+				tot=len(dnm)
+				if len(dnm)<28:
+					l=len(dnm)
+					while l<28:
+						out+=" "
+						l+=1
+					tot=28
+				out+="  "
+				tot+=2
+				dnm=str(st)
+				out+=dnm
+				if len(dnm)<28:
+					l=len(dnm)
+					while l<28:
+						out+=" "
+						l+=1
+					tot+=28
+				else:
+					tot+=len(dnm)
+				out+="  "
+				tot+=2
+				dnm=str(j.contact)
+				out+=dnm
+				if len(dnm)<28:
+					l=len(dnm)
+					while l<28:
+						out+=" "
+						l+=1
+					tot+=28
+				else:
+					tot+=len(dnm)
+				out+="  "
+				tot+=2
+				dnm=str(j.address)
+				out+=dnm
+				if len(dnm)<28:
+					l=len(dnm)
+					while l<28:
+						out+=" "
+						l+=1
+					tot+=28
+				else:
+					tot+=len(dnm)
+				while (tot%114)!=0:
+					out+=" "
+					tot+=1
+				a.append(j)                                                     
+				break
+		if fl==0:
+		  	tot=63
+		  	tot==len(str(i.guser))
+		  	empty.append(str(i.guser))
+			out+=("   Not Available   "+"   Not Available   "+"   "+str(i.guser)+"   "+"   Not Available   ")
+		  	while (tot%114)!=0:
+					out+=" "
+					tot+=1
+	    template_values={'donor':donr,'out':out,'logout':logout,'a':a,'request':request,'empty':empty}
+	    template=JINJA_ENVIRONMENT.get_template('html/coming_donors.html')
+	    self.response.write(template.render(template_values))	

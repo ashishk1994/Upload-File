@@ -1,0 +1,15 @@
+<html>
+<body>
+	<h1 style="text-align:center;">Upload your files !!!</h1>
+	<ul>
+		<li><a href="/list_file">List your files here........</a></li>
+		{% ifequal a 1 %}
+		<h2>Welcome {{user}}</h2>
+		<a href="/logout">logout</a>
+		{% endifequal %}
+		{% ifequal a 0 %}
+		<li><a href="/accounts/login/" >login/signup</a></li>
+		{% endifequal %}
+	</ul>
+</body>	
+</html>

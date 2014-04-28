@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Django File Upload</title>   
+	<link href="{%  static  'bootstrap/css/bootstrap.css'%}" rel="stylesheet" media="screen">
+	<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    </head>
+    <body style="background:url({% static 'bgnoise_lg.jpg' %}) repeat scroll 0 0 #F0F0F0;">
+    <!-- List of uploaded documents -->
+
+    <h1 style="text-align:center;">Uploaded Files</h1>
+    <a href="/" class="btn btn-inverse">Back</a></br><br/><br/>
+    {% if files %}
+        <ul style="text-align:center;">
+        {% for file in files %}
+            <li style="color:blue;">{{ file.upload_file.name }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p style="text-align:center;">No documents.Upload some new documents :) :) :) :) :) :)</p>
+    {% endif %}
+
+    	<br/><br/>
+        <!-- Upload form. Note enctype attribute! -->
+        <form action="{% url "list_file" %}" method="post" enctype="multipart/form-data" style="text-align:center;">
+            {% csrf_token %}
+	<center>
+	   <table style="padding:8px;border-radius:8px 0px;width:40%;box-shadow:1px 4px 12px #444444;text-align:center;">
+	    <tr><td>
+            {{ form.upload_file.label_tag }}</td> <tr><td>{{ form.upload_file.help_text }}</td></tr>
+            <tr><td>
+                {{ form.upload_file }}
+            </td></tr>
+	    <tr><br/></tr>
+	    </table>
+	</center>
+	    <br/>
+            <p><input type="submit" value="Upload"  class="btn btn-large btn-primary disabled"/></p>
+        </form>
+    </body>
